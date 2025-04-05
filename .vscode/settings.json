@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ForEducationWithGit.sln"
+    "dotnet.defaultSolution": "ForEducationWithGit.sln",
+    "dotnet.preferCSharpExtension": true
 }

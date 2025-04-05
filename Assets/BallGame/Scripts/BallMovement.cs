@@ -7,7 +7,6 @@ public class BallMovement : MonoBehaviour
     [SerializeField] float speed = 10f;
     [SerializeField] float jumpForce = 5f;
     private Rigidbody rigidbody;
-
     private int _coins;
 
     void Start()
@@ -17,7 +16,6 @@ public class BallMovement : MonoBehaviour
 
     void Update()
     {
-
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -28,7 +26,6 @@ public class BallMovement : MonoBehaviour
         {
             rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
     }
 
     public void AddCoin(int value)
