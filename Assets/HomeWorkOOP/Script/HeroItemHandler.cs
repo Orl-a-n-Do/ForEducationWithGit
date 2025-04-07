@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class HeroItemHandler : MonoBehaviour
 {
-    private Items _currentItem; // Текущий поднятый предмет
+    private Items _currentItem; 
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Было соприкосновение с предметом");
+        Debug.Log("Было соприкосновение c предметом");
         Items item = other.GetComponent<Items>();
-        if (item != null && _currentItem == null) // Поднимаем предмет, если у игрока еще нет предмета
+
+        if (item != null && _currentItem == null) 
         {
             PickUpItem(item);
         }
@@ -16,7 +17,6 @@ public class HeroItemHandler : MonoBehaviour
 
     private void Update()
     {
-        // Используем предмет при нажатии клавиши (например, "E")
         if (Input.GetKeyDown(KeyCode.E) && _currentItem != null)
         {
             UseItem();
@@ -27,8 +27,7 @@ public class HeroItemHandler : MonoBehaviour
     {
         _currentItem = item; 
         item.transform.SetParent(transform); 
-
-        
+ 
         item.transform.localPosition = new Vector3(1, 0, 0); 
         item.transform.localRotation = Quaternion.identity; 
 
@@ -39,10 +38,10 @@ public class HeroItemHandler : MonoBehaviour
     {
         if(_currentItem != null)
         {
-            _currentItem.Use(); // Используем предмет
+            _currentItem.Use(); 
              _currentItem.PlayParticleEffect();
-            Destroy(_currentItem.gameObject); // Уничтожаем предмет
-            _currentItem = null; // Очищаем ссылку на предмет
+            Destroy(_currentItem.gameObject); 
+            _currentItem = null; 
             Debug.Log("Предмет использован и уничтожен");
         }
     }

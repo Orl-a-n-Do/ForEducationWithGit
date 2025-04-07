@@ -14,10 +14,10 @@ public class InvisibleItem : Items
     {
         if (_InvisibleEffect != null)
         {
-            // Создаем партикл-эффект в позиции предмета
+            
             ParticleSystem effect = Instantiate(_InvisibleEffect, transform.position, Quaternion.identity);
             effect.Play();
-            Destroy(effect.gameObject, effect.main.duration); // Уничтожаем эффект после завершения
+            Destroy(effect.gameObject, effect.main.duration); 
         }
     }
 
