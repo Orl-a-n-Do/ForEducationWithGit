@@ -9,18 +9,33 @@ public class EnemyMoving : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _rotationSpeed;
 
-    [SerializeField] private Transform _currentTarget;
 
+    private List<Transform> _targets;
 
+    private Transform _currentTarget;
 
-    // //[SerializeField] private List<Transform> _targets;
-    // [SerializeField] private Transform _heroTarget;
+    private ITargetSelector _targetSelector;
 
-    // private Queue<Vector3> _targetPosition;
-    // private Vector3 _currentTarget;
-
-
+    public void Initialize(ITargetSelector targetSelector, List<Transform> targets)
+    {
+        SetTargetSelector(targetSelector);
+        _targets = targets;
+    }
     
+    public void SetTargetSelector(ITargetSelector targetSelector)
+    {
+        _targetSelector = targetSelector;
+        UpdateTarget();
+       
+    }
+
+
+
+    private void Awake()
+    {
+        UpdateTarget();
+    }
+
 
     private void Update()
     {
@@ -28,6 +43,7 @@ public class EnemyMoving : MonoBehaviour
 
         if(direction.magnitude <= MinDistanceToTarget)
         {
+            UpdateTarget();
             return;
         }
 
@@ -60,18 +76,6 @@ public class EnemyMoving : MonoBehaviour
     }
 
 
-    // private Vector3 GetDirectionForHero() => _heroTarget.position - transform.position;
-
-    // private Vector3 GetDirectionToTargetPoint() => _currentTarget - transform.position;
-
-
-
-    // private void SwitchTarget()
-    // {
-    //     _currentTarget = _targetPosition.Dequeue();
-    //     _targetPosition.Enqueue(_currentTarget);
-    // }
-
-
-
+    private void UpdateTarget() => _currentTarget = _targetSelector.SelectFrom(_targets);   
+   
 }
