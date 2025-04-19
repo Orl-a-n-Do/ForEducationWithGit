@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShooterSwitcher : MonoBehaviour
 {
     [SerializeField] private Player _player; //Переменная, которая будет хранить объект Player
+    [SerializeField] private Transform _holdPoint;
     
 
     private void Awake()
@@ -16,7 +17,7 @@ public class ShooterSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) //Проверка нажатия клавиши 1
         {
-            _player.SetShooter(new StandartShooter(10)); //Передача объекта Shooter в объект Player
+            _player.SetDragAndDrop(new DragAndDropShooter(10, 5f, _holdPoint)); //Передача объекта Shooter в объект Player
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) //Проверка нажатия клавиши 2
@@ -25,7 +26,5 @@ public class ShooterSwitcher : MonoBehaviour
         }
        
     }
-
-
 
 }

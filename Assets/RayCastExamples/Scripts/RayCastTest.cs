@@ -10,14 +10,14 @@ public class RaycastTest : MonoBehaviour
         Ray ray = new Ray(Vector3.zero, Vector3.forward);
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition); //Промежуточный объект, который будет хранить луч от камеры до объекта
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
-        {
-            Debug.Log("Hit: " + hitInfo.collider.name);
-        }
-        else
-        {
-            Debug.Log("No hit");
-        }
+        // if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        // {
+        //     Debug.Log("Hit: " + hitInfo.collider.name);
+        // }
+        // else
+        // {
+        //     Debug.Log("No hit");
+        // }
 
         Physics.Raycast(ray);
         

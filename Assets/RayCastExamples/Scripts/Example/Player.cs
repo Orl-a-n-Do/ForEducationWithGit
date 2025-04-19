@@ -5,13 +5,17 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private IShooter _shooter; //Переменная, которая будет хранить объект Shooter
+    private IDragAndDrop _dragAndDrop; //Переменная, которая будет хранить объект DragAndDrop
 
     
     public void SetShooter(IShooter shooter) 
     {
         _shooter = shooter; 
     }
-
+    public void SetDragAndDrop(IDragAndDrop dragAndDrop) //Метод, который будет передавать объект DragAndDrop в объект Player
+    {
+        _dragAndDrop = dragAndDrop; //Передача объекта DragAndDrop в объект Shooter
+    }
 
 
     private void Update()

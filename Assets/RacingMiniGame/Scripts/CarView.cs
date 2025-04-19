@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CarView : MonoBehaviour
+{
+    [SerializeField] private CarEngine _engine;
+
+
+    [SerializeField] private TrailRenderer _leftWheelTrail;
+    [SerializeField] private TrailRenderer _rightWheelTrail;
+    [SerializeField] private ParticleSystem _smokeEffect;
+    
+
+    private void Update()
+    {
+        transform.position = _engine.Position - Vector3.up * 0.45f;
+        transform.rotation = _engine.CurrentOrientation.rotation;
+
+        bool isDrift = _engine.OnGround && _engine.Velocity.magnitude > 3 && Vector3.Angle(_engine.Velocity, transform.forward) > 30f;
+
+        if(isDrift)
+        {
+            _leftWheelTrail.emitting = true;
+            _rightWheelTrail.emitting = true;
+
+            if(_smokeEffect.isPlaying == false)
+            {
+                _smokeEffect.Play();
+            }
+        }
+        else
+        {
+            _leftWheelTrail.emitting = false;
+            _rightWheelTrail.emitting = false;
+
+            if(_smokeEffect.isPlaying)
+            {
+                _smokeEffect.Stop();
+            }
+        }
+    }
+
+}
