@@ -18,14 +18,15 @@ public class StandartShooter : IShooter
         if(Physics.Raycast(ray, out RaycastHit hit)) //Проверка на попадание луча в объект
         {
             IDamageable damageable = hit.collider.GetComponent<IDamageable>(); //Получение компонента IDamageable из объекта, в который попал луч
-                if(damageable != null) //Проверка на наличие компонента IDamageable в объекте
-                {
-                    damageable.TakeDamage(_damage); //Вызов метода TakeDamage у объекта, в который попал луч
-                }
-                else
-                {
-                    Debug.Log("No damageable component found"); //Вывод в консоль, если компонент IDamageable не найден
-                }
+            
+            if (damageable != null) //Проверка на наличие компонента IDamageable в объекте
+            {
+                damageable.TakeDamage(_damage); //Вызов метода TakeDamage у объекта, в который попал луч
+            }
+            else
+            {
+                Debug.Log("No damageable component found"); //Вывод в консоль, если компонент IDamageable не найден
+            }
         }
     }
 }

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public interface IDragAndDrop 
 {
-    void PickUpObject(Transform obj);
+    void PickUpObject(Rigidbody obj);
 
     void DropObject();
+
+    void Update();
 }
