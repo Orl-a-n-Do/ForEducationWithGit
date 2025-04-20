@@ -3,38 +3,33 @@ using UnityEngine;
 
 public class ExploisionShooter : IShooter
 {
-   private int _damage ; //Переменная, которая будет хранить урон, который будет наноситься объекту
-   private float _radius ; //Переменная, которая будет хранить радиус сферы, в которую будет попадать луч
+    private int _damage ; //Переменная, которая будет хранить урон, который будет наноситься объекту
+    private float _radius;
 
     public ExploisionShooter(int damage, float radius) //Конструктор класса Shooter, который будет принимать урон
     {
         _damage = damage; //Присваивание урона переменной _damage
-        _radius = 10f; //Присваивание радиуса сферы переменной _radisus
     }
     
-    public void Shoot(Vector3 origin, Vector3 direction)
+    public void Shoot()
     {
-        Ray ray = new Ray(origin, direction);
-        Debug.Log("Shooter created"); //Вывод в консоль при создании объекта
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Создание луча из камеры в точку на экране, куда мы нажали мышкой
 
-       if(Physics.Raycast(ray, out RaycastHit hit)) //Проверка на попадание луча в объект
+        if(Physics.Raycast(ray, out RaycastHit hit)) //Проверка на попадание луча в объект
         {
-            Collider[] targets = Physics.OverlapSphere(hit.point, _radius); //Создание сферы вокруг объекта, в который попал луч
+            Collider[] targets = Physics.OverlapSphere(hit.point, _radius); // Получаем все коллайдеры в радиусе 5 единиц от точки попадания
 
-            foreach(Collider target in targets) //Перебор всех объектов, которые попали в сферу
+            foreach(Collider target in targets) // Проходим по всем коллайдерам
             {
                 IDamageable damageable = target.GetComponent<IDamageable>(); //Получение компонента IDamageable из объекта, в который попал луч
-                
+
                 if(damageable != null) //Проверка на наличие компонента IDamageable в объекте
                 {
                     damageable.TakeDamage(_damage); //Вызов метода TakeDamage у объекта, в который попал луч
-                }
-                else
-                {
-                    Debug.Log("No damageable component found"); //Вывод в консоль, если компонент IDamageable не найден
-                }
+                }       
             }
         }
-
     }
+
 }
+

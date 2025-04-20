@@ -22,6 +22,7 @@ public class CarEngine : MonoBehaviour
 
     public Vector3 Position => _movable.position;
     public Transform CurrentOrientation => _currentOrientation;
+    public float RotationSide  => _horizontalInput;
     public bool OnGround => _onGround;
 
 
