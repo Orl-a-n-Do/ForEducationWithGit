@@ -15,6 +15,7 @@ public class ObjectInteraction : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) 
         {
+            Debug.Log("Левая кнопка мыши нажата");
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {

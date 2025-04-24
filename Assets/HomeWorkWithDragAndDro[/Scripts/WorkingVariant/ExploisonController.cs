@@ -11,6 +11,7 @@ public class ExplosionController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1)) 
         {
+            Debug.Log("Правая кнопка мыши нажата");
             HandleExplosion();
         }
     }
@@ -21,8 +22,7 @@ public class ExplosionController : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            
+        {        
             if (explosionEffectPrefab != null)
             {
                 Instantiate(explosionEffectPrefab, hit.point, Quaternion.identity);
@@ -34,13 +34,13 @@ public class ExplosionController : MonoBehaviour
             foreach (var collider in colliders)
             {
                 
-                Rigidbody rb = collider.GetComponent<Rigidbody>();
-                if (rb != null)
+                Rigidbody rigidBody = collider.GetComponent<Rigidbody>();
+                if (rigidBody != null)
                 {
                     
-                    Vector3 forceDirection = (rb.position - hit.point).normalized;
+                    Vector3 forceDirection = (rigidBody.position - hit.point).normalized;
 
-                    rb.AddForce(forceDirection * explosionForce, ForceMode.Impulse);
+                    rigidBody.AddForce(forceDirection * explosionForce, ForceMode.Impulse);
                 }
             }
         }

@@ -2,7 +2,7 @@
 - Project name: ForEducationWithGit
 - Unity version: Unity 2023.2.10f1
 - Active game object:
-  - Name: ExploisonController
+  - Name: ---ExploisonController---
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
