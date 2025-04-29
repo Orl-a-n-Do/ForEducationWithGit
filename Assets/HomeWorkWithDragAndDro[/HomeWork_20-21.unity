@@ -1379,8 +1379,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 749208150}
+  - component: {fileID: 749208151}
   m_Layer: 0
-  m_Name: ObjectInteraction Controller
+  m_Name: ---ObjectInteractionController---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1401,6 +1402,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &749208151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749208149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4f8bf8991e86f4f93c38101df1cbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 945451620}
 --- !u!1 &772641213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,7 +1722,7 @@ GameObject:
   - component: {fileID: 839820978}
   - component: {fileID: 839820979}
   m_Layer: 0
-  m_Name: ExploisonController
+  m_Name: ---ExploisonController---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2201,7 +2215,6 @@ GameObject:
   - component: {fileID: 945451620}
   - component: {fileID: 945451619}
   - component: {fileID: 945451622}
-  - component: {fileID: 945451623}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2327,19 +2340,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &945451623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945451618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4f8bf8991e86f4f93c38101df1cbdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 945451620}
 --- !u!1 &1107114956
 GameObject:
   m_ObjectHideFlags: 0
@@ -4080,9 +4080,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 945451621}
+  - {fileID: 749208150}
   - {fileID: 839820978}
   - {fileID: 385201825}
   - {fileID: 439401872}
   - {fileID: 1821978793}
   - {fileID: 739257533}
-  - {fileID: 749208150}
