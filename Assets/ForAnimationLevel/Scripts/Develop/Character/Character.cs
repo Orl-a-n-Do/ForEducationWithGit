@@ -15,8 +15,22 @@ public class Character : MonoBehaviour, IDirectionalMoveable, IDirectionRotatabl
 
     private void Awake()
     {
-        _mover = new DirectionalMover(GetComponent<CharacterController>(),_moveSpeed);
-        _rotator = new DirectionalRotator(transform, _rotationSpeed);
+        if(TryGetComponent(out CharacterController characterController))
+        {
+            _mover = new CharacterControllerDirectionalMover(characterController,_moveSpeed);
+            _rotator = new TransformDirectionalRotator(transform, _rotationSpeed);
+        }
+        else if(TryGetComponent(out Rigidbody rigidbody))
+        {
+            _mover = new RigidBodyDirectionalMover(rigidbody,_moveSpeed);
+            _rotator = new RigidBodyDirectionalRotator(rigidbody, _rotationSpeed);
+        }
+        else    
+        {
+
+            Debug.Log("Не найден компонент передвижения на обьекте");
+        }
+
     }
 
     private void Update()

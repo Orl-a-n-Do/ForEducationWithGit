@@ -35,8 +35,20 @@ public class AgentCharacterAgroController : Controller
     protected override void UpdateLogic(float deltaTime)
     {
         _idleTimer -= Time.deltaTime;
-        _character.SetRotationDirection(_character.CurrentVelocity);
 
+        if(_character.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
+        {
+           if(_character.InJumpProcess == false ) 
+           {
+                _character.SetRotationDirection(offMeshLinkData.endPos - offMeshLinkData.startPos);
+
+                _character.Jump(offMeshLinkData);
+           }
+           return;
+
+        }
+
+        _character.SetRotationDirection(_character.CurrentVelocity);
 
         if(_character.TryGetPath(_target.position, _pathToTarget))
         {

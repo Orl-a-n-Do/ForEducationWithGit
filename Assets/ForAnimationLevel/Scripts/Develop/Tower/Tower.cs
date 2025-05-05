@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour, IDirectionRotatable
 {
-    private DirectionalRotator _rotator;
+    private TransformDirectionalRotator _rotator;
     [SerializeField]private float _rotationSpeed;
 
     public Quaternion CurrentRotation => _rotator.CurrentRotation;
@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour, IDirectionRotatable
 
     public void Awake()
     {
-        _rotator = new DirectionalRotator(transform, _rotationSpeed);
+        _rotator = new TransformDirectionalRotator(transform, _rotationSpeed);
     }
 
 

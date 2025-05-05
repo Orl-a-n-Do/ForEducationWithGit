@@ -1,30 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectionalMover 
+public abstract class DirectionalMover 
 {
-    
-    private CharacterController _characterController;
+   
     private float _movementSpeed;
 
     private Vector3 _currentDirection;
 
-    public DirectionalMover(CharacterController characterController, float movementSpeed)
+    public DirectionalMover(float movementSpeed)
     {
-        _characterController = characterController;
         _movementSpeed = movementSpeed;
     }
 
-    public Vector3 CurrentVelocity { get; private set; }
+    public Vector3 CurrentVelocity => _currentDirection.normalized * _movementSpeed;
 
-    public void SetInputDirection(Vector3 direction) //Установка нужного направления и апдейт логики;
+    public void SetInputDirection(Vector3 direction) //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ;
     {
         _currentDirection = direction;
     }
 
-    public void Update(float deltaTime) //Самодельный апдейт;
-    {
-        CurrentVelocity = _currentDirection.normalized * _movementSpeed;
-        _characterController.Move(CurrentVelocity * deltaTime); 
-    }
 
+    public abstract void Update(float deltaTime);
+   
 }
