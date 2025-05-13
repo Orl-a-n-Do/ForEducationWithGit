@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class DirectionalMover 
 {
-   
+      
     private float _movementSpeed;
 
     private Vector3 _currentDirection;

@@ -22,7 +22,10 @@ public class NavMeshUtils : MonoBehaviour
 
    public static bool TryGetPass(Vector3 sourcePosition, Vector3 targetPosition, NavMeshQueryFilter queryFilter, NavMeshPath pathToTarget)
    {
-        if(NavMesh.CalculatePath(sourcePosition, targetPosition, queryFilter, pathToTarget) && pathToTarget.status != NavMeshPathStatus.PathInvalid)
+        if(NavMesh.CalculatePath(sourcePosition, 
+        targetPosition, 
+        queryFilter, 
+        pathToTarget) && pathToTarget.status != NavMeshPathStatus.PathInvalid)
                 return true;
 
         return false;
