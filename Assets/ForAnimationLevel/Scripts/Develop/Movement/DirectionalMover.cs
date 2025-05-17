@@ -16,7 +16,7 @@ public abstract class DirectionalMover
 
     public Vector3 CurrentVelocity => _currentDirection.normalized * _movementSpeed;
 
-    public void SetInputDirection(Vector3 direction) //��������� ������� ����������� � ������ ������;
+    public void SetInputDirection(Vector3 direction) 
     {
         _currentDirection = direction;
     }

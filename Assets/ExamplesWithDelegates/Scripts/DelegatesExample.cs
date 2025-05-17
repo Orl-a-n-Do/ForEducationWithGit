@@ -9,41 +9,24 @@ public class DelegatesExample : MonoBehaviour
     private void Awake()
     {
         TestDelegate testDelegate = new TestDelegate(Sum);
+        ShowOperationResult(testDelegate, 4, 5);
 
-        testDelegate -= Sum;
-       
-
-
-       if(testDelegate != null)
-            testDelegate(4, 5);
-
-        testDelegate?.Invoke(4, 2);    
-            
-        // int result = testDelegate(5,3);
-        // Debug.Log(result);
     }
 
 
-    private int Sum(int a, int b)
+    private int Sum(int a, int b) => a + b;
+    
+
+    private int Multiply(int a, int b) => a * b;
+   
+    private int Substract(int a, int b) => a - b;
+
+    private void ShowOperationResult(TestDelegate operation, int firstNumber, int secondNumber )
     {
-        int result = a + b;
-        Debug.Log("Сумма" + result);
 
-        return result;
+        int result = operation.Invoke(firstNumber, secondNumber); 
+        Debug.Log(result);
+
     }
-
-    private int Multiply(int a, int b)
-    {
-        int result = a * b;
-        Debug.Log("Умножение" + result);
-
-        return result;
-    }
-    private int Substract(int a, int b)
-    {
-        int result = a - b;
-        Debug.Log("Вычитание" + result);
-
-        return result;
-    }
+    
 }
