@@ -152,3 +152,4 @@ MonoBehaviour:
   _timeUntilExploison: 3
   _damage: 20
   _triggerCollider: {fileID: 4018651207847517622}
+  _explosionEffectPrefab: {fileID: 1342326919695932731, guid: b00556c38ea030844b989aac364d048a, type: 3}

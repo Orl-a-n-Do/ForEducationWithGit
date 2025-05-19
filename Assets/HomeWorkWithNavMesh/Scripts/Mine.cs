@@ -8,6 +8,7 @@ public class Mine : MonoBehaviour
     [SerializeField] private float _timeUntilExploison;
     [SerializeField] private int _damage;
     [SerializeField] private SphereCollider _triggerCollider;
+    [SerializeField] private GameObject _explosionEffectPrefab;
     
 
     private Coroutine _detonateProcess;
@@ -55,13 +56,29 @@ public class Mine : MonoBehaviour
             yield return null;
         }
 
+        Explode(); // <-- Вызов взрыва
+
         _detonateProcess = null;
         Destroy(gameObject);
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 0.3f, 0.1f, 0.3f); // Полупрозрачный красный
+        Gizmos.DrawSphere(transform.position, _exploisonRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _exploisonRadius);
+    }
 
     private void Explode()
     {
+        if (_explosionEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, 3f); // Уничтожить эффект через 3 секунды (или по длительности эффекта)
+        }
+
+
         Collider[] detectedColliders = Physics.OverlapSphere(transform.position, _exploisonRadius);
 
 
