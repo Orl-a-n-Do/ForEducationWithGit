@@ -6,17 +6,15 @@ public class EventListenerExample : MonoBehaviour
 {
    [SerializeField] private EventsExample _example;
 
-
    private void Awake()
    {
-
-        _example.EventExample += OnEventExample;
-
-
+     _example.HealthChanged += OnHealthChanged;
+     
    }
 
-   private void OnEventExample()
+   private void OnHealthChanged(int a)
    {
-        Debug.Log("OnEventExample сработал!");
+        Debug.Log("OnEventExample сработал!" + a);
    }
+
 }

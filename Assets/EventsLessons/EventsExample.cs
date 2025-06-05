@@ -1,22 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public delegate void MyDelegate();
+
 
 public class EventsExample : MonoBehaviour
 {
-   public event MyDelegate EventExample;
-
-
+    public event Action<int> HealthChanged;
+    
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            EventExample?.Invoke();
-
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            HealthChanged?.Invoke(10);
     }
 
 
-
 }
+
