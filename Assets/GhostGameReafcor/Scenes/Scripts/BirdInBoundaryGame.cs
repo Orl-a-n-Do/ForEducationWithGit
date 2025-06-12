@@ -7,6 +7,9 @@ public class BirdInBoundaryGame : MonoBehaviour
     private string LooeseMessage = "Game Over";
     [SerializeField] Bird _bird;
 
+    [SerializeField] private JumpCounterView _counterView;
+    private JumpCounter _jumpCounter;
+
     [SerializeField] private GameObject _upperBoundary;
     [SerializeField] private GameObject _lowerBoundary;
 
@@ -16,11 +19,18 @@ public class BirdInBoundaryGame : MonoBehaviour
 
     private bool _isRunning;
 
-    private void Awake()
+    private void Start()
     {
-
+        _jumpCounter = new JumpCounter(_bird);
+        _counterView.Initialize(_jumpCounter);
         _isRunning = true;
     }
+
+    private void OnDestroy()
+    {
+        _jumpCounter.Deinitialize();
+    }
+
 
     private void Update()
     {
@@ -46,7 +56,7 @@ public class BirdInBoundaryGame : MonoBehaviour
         _bird.gameObject.SetActive(true);
         _bird.transform.position = new Vector3(0, 0, 0);
         _bird.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        _bird.ResetJumpCount();
+        _jumpCounter.Clear();
 
         _upperBoundary.transform.position = new Vector3(0, _upperYLimit, 0);
         _lowerBoundary.transform.position = new Vector3(0, _lowerYLimit, 0);
@@ -58,7 +68,7 @@ public class BirdInBoundaryGame : MonoBehaviour
     {
         _bird.Kill();
         Debug.Log(LooeseMessage);
-        Debug.Log($"Final Score:{_bird.JumpCount}");
+        Debug.Log($"Final Score:{_jumpCounter.Count}");
         _isRunning = false;
     }
 
