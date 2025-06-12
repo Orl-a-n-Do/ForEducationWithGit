@@ -6,6 +6,7 @@ public class GenericsExample : MonoBehaviour
     [SerializeField] private Banana[] _bananas;
     [SerializeField] private Storage<Apple> _appleStorage;
     [SerializeField] private Storage<Banana> _bananaStorage;
+    
 
     private void Awake()
     {
@@ -16,7 +17,7 @@ public class GenericsExample : MonoBehaviour
         {
             _appleStorage.Add(apple);
         }
-        
+
 
         foreach (Banana banana in _bananas)
         {
