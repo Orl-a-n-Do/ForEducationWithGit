@@ -2,7 +2,7 @@
 - Project name: ForEducationWithGit
 - Unity version: Unity 2023.2.10f1
 - Active scene:
-  - Name: GenericsExamples
+  - Name: LinQ
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, FxTemporaire
   - Layers:

@@ -1,44 +1,27 @@
 using System;
-using UnityEngine;
 
-public class ReactiveVariable : MonoBehaviour
+public class ReactiveVariable<T>:IReadOnlyVariable<T> where T: IEquatable<T>
 {
-    /// <summary>
-    /// Событие, вызываемое при изменении значения переменной.
-    /// Передает старое и новое значение.
-    /// </summary>
-    public event Action<int, int> Changed;
+    public event Action< T, T> Changed;
+    private T _value;
 
-    // Текущее значение переменной.
-    private int _value;
 
-    /// <summary>
-    /// Конструктор по умолчанию. Устанавливает значение по умолчанию (0).
-    /// </summary>
-    public ReactiveVariable() => _value = default(int);
+    public ReactiveVariable() => _value = default(T);
+    public ReactiveVariable(T value) => _value = value;
 
-    /// <summary>
-    /// Конструктор с параметром. Устанавливает начальное значение переменной.
-    /// </summary>
-    /// <param name="value">Начальное значение</param>
-    public ReactiveVariable(int value) => _value = value;
-    
-    /// <summary>
-    /// Свойство для доступа и изменения значения переменной.
-    /// При изменении вызывает событие Changed.
-    /// </summary>
-    public int Value
+
+    public T Value
     {
         get => _value;
         set
         {
-            int oldValue = _value;
+            T oldValue = _value;
 
             _value = value;
 
-            // Если значение изменилось, уведомить подписчиков.
-            if (_value != oldValue)
+            if (_value.Equals(oldValue) == false)
                 Changed?.Invoke(oldValue, _value);
         }
     }
+        
 }

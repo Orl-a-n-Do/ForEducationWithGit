@@ -1,20 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health 
 {
-    public event Action<float, float> Changed;
+    private ReactiveVariable<float> _current;
+    private ReactiveVariable<float> _max;
 
     public Health(float current, float max)
     {
-        Current = current;
-        Max = max;
+        _current = new ReactiveVariable<float>(current); 
+        _max = new ReactiveVariable<float>(max); ;
     }
 
-    public float Max { get; }
-    public float Current { get; private set; }
+
+    //Сделаем защиту при разговоре об инкапсуляции;
+
+    public new IReadOnlyVariable<float> Max => _max;
+    public new IReadOnlyVariable<float> Current => _current;
+    
 
     public void Reduce(float value)
     {
@@ -23,10 +25,8 @@ public class Health : MonoBehaviour
             Debug.LogError(nameof(value));
             return;
         }
-        float oldValue = Current;
 
-        Current = Mathf.Clamp(Current - value, 0, Max);
-        Changed?.Invoke(oldValue, Current);
+        _current.Value = Mathf.Clamp(_current.Value - value, 0, _max.Value);
     }
     
     public void Add(float value)
@@ -37,10 +37,8 @@ public class Health : MonoBehaviour
             return;
         }
 
-        float oldValue = Current;
 
-        Current = Mathf.Clamp(Current + value, 0, Max);
-        Changed?.Invoke(oldValue, Current);
+        _current.Value = Mathf.Clamp(_current.Value + value, 0, _max.Value);     
     }
 
 }

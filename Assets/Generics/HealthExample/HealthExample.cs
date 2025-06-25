@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthExample : MonoBehaviour
 {
-    [SerializeField] private HealthView _healthView;
+    [SerializeField] private SliderView _healthView;
     private Health _health;
 
     private void Awake()
     {
         _health = new Health(100, 100);
 
-        _healthView.Initialize(_health);
+        _healthView.Initialize(_health.Current, _health.Max);
 
-        _health.Changed += OnHealthChanged;
+        _health.Current.Changed += OnHealthChanged;
     }
 
     private void OnDestroy()
     {
-        _health.Changed -= OnHealthChanged;
+        _health.Current.Changed -= OnHealthChanged;
     }
 
     private void OnHealthChanged(float arg1, float newValue)
