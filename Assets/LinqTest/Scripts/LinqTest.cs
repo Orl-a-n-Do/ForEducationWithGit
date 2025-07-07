@@ -19,22 +19,23 @@ namespace LinqExample
             enemies.Add(new Enemy("Dima", 40));
             enemies.Add(new Enemy("Igor", 30));
             enemies.Add(new Enemy("Pasha", 20));
-
-            List<string> filteredEnemies = enemies
-                .Where(enemy => enemy.Damage > 50)
-                .Select(enemy => enemy.Name)
-                .ToList();
+            enemies.Add(new Enemy("Sasha", 10));
+            enemies.Add(new Enemy("Sasha", 34));
 
 
-            List<Enemy> sortedEnemies = enemies
-                .OrderBy(enemy => enemy.Damage)
-                .ToList();
+            IEnumerable<IGrouping<string, Enemy>> groupedEnemies = enemies.GroupBy(enemy => enemy.Name);
+            
 
-            sortedEnemies.ForEach(enemy => Debug.Log(enemy.Name + " " + enemy.Damage));
+            foreach(IGrouping<string, Enemy> group in groupedEnemies)
+            {
+                Debug.Log($"Group: {group.Key}");
 
-            Debug.Log(enemies.First().Name);
-            Debug.Log(enemies.Last().Name);   
-
+                foreach(Enemy enemy in group)
+                {
+                    Debug.Log($"Enemy: {enemy.Name} Damage: {enemy.Damage}");
+                }
+            }
+            
         }
 
 
