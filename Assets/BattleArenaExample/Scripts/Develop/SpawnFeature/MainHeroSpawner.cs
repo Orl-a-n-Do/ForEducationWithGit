@@ -14,6 +14,8 @@ public class MainHeroSpawner : MonoBehaviour
     {
         Character instance = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity, null);
         
+        instance.Initialize();
+        
         _followCamera.Follow = instance.CameraTarget;
 
 

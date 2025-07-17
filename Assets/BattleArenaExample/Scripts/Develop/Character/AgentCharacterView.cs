@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AgentCharacterView : MonoBehaviour
+public class AgentCharacterView : MonoBehaviour, IInitializable
 {
     private readonly int isRunningKey = Animator.StringToHash("isRunning");
 
@@ -11,17 +11,17 @@ public class AgentCharacterView : MonoBehaviour
 
     [SerializeField] private SkinnedMeshRenderer[] _renderers;
 
-    private void Awake()
+    public void Initialize()
     {
         _renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        UpdateRenderers();
     }
 
 
     private void Update()
     {
-        if (_character.InSpawnProcess(out float elapsedTime))
-            SetFloatFor(_renderers, EdgeKey, 1- elapsedTime / _character.TimeToSwpawn);
-        
+
+        UpdateRenderers();
 
 
         if (_character.CurrentVelocity.magnitude > 0.05f)
@@ -40,11 +40,22 @@ public class AgentCharacterView : MonoBehaviour
         _animator.SetBool(isRunningKey, true);
     }
 
+    private void UpdateRenderers()
+    {
+        if (_character.InSpawnProcess(out float elapsedTime))
+            SetFloatFor(_renderers, EdgeKey, 1 - elapsedTime / _character.TimeToSwpawn);
+        else
+            SetFloatFor(_renderers, EdgeKey, 0);    
+
+    }
+
+    
+
     private void SetFloatFor(SkinnedMeshRenderer[] renderers, string key, float param)
     {
-        foreach (SkinnedMeshRenderer renderer in renderers )
+        foreach (SkinnedMeshRenderer renderer in renderers)
             renderer.material.SetFloat(key, param);
-        
+
     }
 
 }

@@ -30,7 +30,7 @@ public class Character : MonoBehaviour, IDirectionalMoveable, IDirectionRotatabl
     
     public Transform CameraTarget => _cameraTarget;
 
-    private void Awake()
+    public void Initialize()
     {
 
         if (TryGetComponent(out NavMeshAgent agent))
@@ -55,6 +55,9 @@ public class Character : MonoBehaviour, IDirectionalMoveable, IDirectionRotatabl
 
             Debug.Log("Не найден компонент передвижения на обьекте");
         }
+
+        foreach(IInitializable initializable in GetComponentsInChildren<IInitializable>())
+            initializable.Initialize();
 
     }
 

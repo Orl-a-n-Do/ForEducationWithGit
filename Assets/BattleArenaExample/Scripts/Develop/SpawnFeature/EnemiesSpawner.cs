@@ -12,7 +12,8 @@ public class EnemiesSpawner : MonoBehaviour
     private List<Controller> _controllers = new();
 
     public void Spawn(Transform target)
-    {
+    {   
+        
         NavMeshQueryFilter queryFilter = new NavMeshQueryFilter();
         queryFilter.agentTypeID = 0;
         queryFilter.areaMask = 1;
@@ -47,11 +48,11 @@ public class EnemiesSpawner : MonoBehaviour
            if (foundPosition)
             {
                 AgentCharacter instance = Instantiate(_prefab, spawnPoint.position, Quaternion.identity, null);
+                instance.Initialize();
 
                 Controller controller = new AgentCharacterAgroController(instance, target, 30, 2, 1);
 
                 controller.Enable();
-
                 _controllers.Add(controller);
             }
             

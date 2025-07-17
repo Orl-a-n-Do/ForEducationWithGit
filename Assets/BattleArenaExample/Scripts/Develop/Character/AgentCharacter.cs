@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour
+public class AgentCharacter : MonoBehaviour, IMoveable
 {
     private NavMeshAgent _agent;
 
@@ -29,7 +29,7 @@ public class AgentCharacter : MonoBehaviour
     public float TimeToSwpawn => _spawnTimer.TimeLimit;
 
 
-    private void Awake()
+    public void Initialize()
     {
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
@@ -39,7 +39,12 @@ public class AgentCharacter : MonoBehaviour
         _jumper = new AgentJumper(_jumpSpeed, _agent, this, _jumpCurve);
 
         _spawnTimer = new Timer(this);
+
         _spawnTimer.StartProcess(_timeToSwpawn);
+
+        foreach(IInitializable initializable in GetComponentsInChildren<IInitializable>())
+            initializable.Initialize();
+
     }
 
     private void Update()

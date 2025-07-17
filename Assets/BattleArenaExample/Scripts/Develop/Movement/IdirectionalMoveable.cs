@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public interface IDirectionalMoveable: ITransformPosition
+public interface IDirectionalMoveable : ITransformPosition, IMoveable
 {
-    Vector3 CurrentVelocity{get;}
+
     void SetMoveDirection(Vector3 inputDirection);
+    
+    
 }
