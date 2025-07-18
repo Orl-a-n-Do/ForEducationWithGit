@@ -8,6 +8,8 @@ public class Bootstrap : MonoBehaviour
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private ConfirmPopup _confirmPopup;
 
+    private ControllersUpdateService _controllersUpdateService;
+
     private void Awake()
     {
 
@@ -22,6 +24,14 @@ public class Bootstrap : MonoBehaviour
         _loadingScreen.ShowMessage("Loading...");
 
 
+        _controllersUpdateService = new ControllersUpdateService();
+
+
+
+        ControllersFactory controllersFactory = new ControllersFactory();
+
+        _mainHeroSpawner.Initialize(_controllersUpdateService, controllersFactory);
+        _enemiesSpawner.Initialize(_controllersUpdateService, controllersFactory);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -39,6 +49,11 @@ public class Bootstrap : MonoBehaviour
         // Cтарт игры
 
         _enemiesSpawner.Spawn(mainHero.transform);
+    }
+
+    private void Update()
+    {
+        _controllersUpdateService.Update(Time.deltaTime);
     }
 
 }

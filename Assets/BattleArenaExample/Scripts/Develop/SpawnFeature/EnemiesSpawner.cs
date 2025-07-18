@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -9,66 +8,49 @@ public class EnemiesSpawner : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private int _count;
 
-    private List<Controller> _controllers = new();
+   private ControllersUpdateService _controllersUpdateService;
+    private ControllersFactory _controllersFactory;
+
+
+    public void Initialize(
+        ControllersUpdateService controllersUpdateService,
+        ControllersFactory controllersFactory
+         )
+    {
+        _controllersUpdateService = controllersUpdateService;
+        _controllersFactory = controllersFactory;
+    }
 
     public void Spawn(Transform target)
-    {   
-        
+    {
+        Vector3 positionAroundTarget;
+        NavMeshHit spawnPoint;
+
         NavMeshQueryFilter queryFilter = new NavMeshQueryFilter();
         queryFilter.agentTypeID = 0;
         queryFilter.areaMask = 1;
 
         for (int i = 0; i < _count; i++)
         {
-            int attempts = 0;
-            const int maxAttempts = 100;
-            Vector3 positionAroundTarget = Vector3.zero;
-            NavMeshHit spawnPoint = new NavMeshHit();
-            bool foundPosition = false;
-
             do
             {
-                Vector2 randomPositionInCircle = Random.insideUnitCircle * _radius;
-                Vector3 offset = new Vector3(randomPositionInCircle.x, 0, randomPositionInCircle.y);
+                Vector2 randomPositionCircle = Random.insideUnitCircle * _radius;
+                Vector3 offset = new Vector3(randomPositionCircle.x, 0, randomPositionCircle.y);
 
                 positionAroundTarget = target.position + offset;
-                attempts++;
+            } while (NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 0.1f, queryFilter) == false);
 
-                if (attempts >= maxAttempts)
-                {
-                    Debug.LogWarning($"Не удалось найти позицию для врага {i} после {maxAttempts} попыток. Пропускаем.");
-                    break;
-                }
+            AgentCharacter instance = Instantiate(_prefab, spawnPoint.position, Quaternion.identity, null);
 
-                foundPosition = NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 1f, queryFilter);
-
-            } while (!foundPosition);
-
-            // Создаем врага только если нашли валидную позицию
-           if (foundPosition)
-            {
-                AgentCharacter instance = Instantiate(_prefab, spawnPoint.position, Quaternion.identity, null);
-                instance.Initialize();
-
-                Controller controller = new AgentCharacterAgroController(instance, target, 30, 2, 1);
-
-                controller.Enable();
-                _controllers.Add(controller);
-            }
+            instance.Initialize();
             
-            // ЕСЛИ НУЖНО ОТКЛЮЧИТЬ СПАВН ВРАГОВ - ЗАКОММЕНТИРУЙТЕ ВЕСЬ БЛОК ВЫШЕ
-            // И РАСКОММЕНТИРУЙТЕ СТРОКУ НИЖЕ:
-            // Debug.Log("Спавн врагов отключен");
+            Controller controller = _controllersFactory.CreateAgentCharacterAgroController(instance, target, 30, 2, 1);
 
 
+            controller.Enable();
+
+            _controllersUpdateService.Add(controller);
         }
-
     }
-
-    private void Update()
-    {
-        foreach (Controller controller in _controllers)
-            controller.Update(Time.deltaTime);
-    }
-
+   
 }

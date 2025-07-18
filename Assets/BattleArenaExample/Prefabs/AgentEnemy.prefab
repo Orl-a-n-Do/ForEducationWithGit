@@ -6527,7 +6527,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6236904312294916737}
   - component: {fileID: 4037455818170593275}
-  - component: {fileID: 177519407639995401}
+  - component: {fileID: 3270284304398743241}
+  - component: {fileID: 7989773085416974218}
   m_Layer: 0
   m_Name: Jammo_LowPoly
   m_TagString: Untagged
@@ -6598,7 +6599,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &177519407639995401
+--- !u!114 &3270284304398743241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6607,11 +6608,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6977965563845161106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26550b5eeaf9274408fd56fd9be6e03f, type: 3}
+  m_Script: {fileID: 11500000, guid: 78f4ed32008b79c439b322bc12cc1ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 4037455818170593275}
-  _character: {fileID: 6387983112345875006}
+  _mainHero: {fileID: 0}
+--- !u!114 &7989773085416974218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6977965563845161106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c081d32ee21e04cb07e8a68aa68edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _renderers: []
 --- !u!1 &6984802038152365303
 GameObject:
