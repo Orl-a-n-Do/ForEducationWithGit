@@ -2,13 +2,13 @@
 - Project name: ForEducationWithGit
 - Unity version: Unity 2023.2.10f1
 - Active scene:
-  - Name: AgentEnemy
+  - Name: Scene
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, FxTemporaire, PlayerEyes
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: AgentEnemy
+  - Name: MainHeroSpawner
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

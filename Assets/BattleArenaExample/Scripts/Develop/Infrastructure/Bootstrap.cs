@@ -29,9 +29,14 @@ public class Bootstrap : MonoBehaviour
 
 
         ControllersFactory controllersFactory = new ControllersFactory();
+        CharactersFactory charactersFactory = new CharactersFactory();
 
-        _mainHeroSpawner.Initialize(_controllersUpdateService, controllersFactory);
-        _enemiesSpawner.Initialize(_controllersUpdateService, controllersFactory);
+        MainHeroFactory mainHeroFactory = new MainHeroFactory(_controllersUpdateService, controllersFactory, charactersFactory);
+        EnemiesFactory enemiesFactory = new EnemiesFactory(_controllersUpdateService, controllersFactory, charactersFactory);
+
+
+        _mainHeroSpawner.Initialize(mainHeroFactory);
+        _enemiesSpawner.Initialize(enemiesFactory);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -53,7 +58,7 @@ public class Bootstrap : MonoBehaviour
 
     private void Update()
     {
-        _controllersUpdateService.Update(Time.deltaTime);
+        _controllersUpdateService?.Update(Time.deltaTime);
     }
 
 }

@@ -8,17 +8,13 @@ public class EnemiesSpawner : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private int _count;
 
-   private ControllersUpdateService _controllersUpdateService;
-    private ControllersFactory _controllersFactory;
+    private EnemiesFactory _enemiesFactory;
 
 
-    public void Initialize(
-        ControllersUpdateService controllersUpdateService,
-        ControllersFactory controllersFactory
-         )
+    public void Initialize(EnemiesFactory enemiesFactory)
     {
-        _controllersUpdateService = controllersUpdateService;
-        _controllersFactory = controllersFactory;
+        _enemiesFactory = enemiesFactory;
+        
     }
 
     public void Spawn(Transform target)
@@ -40,16 +36,7 @@ public class EnemiesSpawner : MonoBehaviour
                 positionAroundTarget = target.position + offset;
             } while (NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 0.1f, queryFilter) == false);
 
-            AgentCharacter instance = Instantiate(_prefab, spawnPoint.position, Quaternion.identity, null);
-
-            instance.Initialize();
-            
-            Controller controller = _controllersFactory.CreateAgentCharacterAgroController(instance, target, 30, 2, 1);
-
-
-            controller.Enable();
-
-            _controllersUpdateService.Add(controller);
+            _enemiesFactory.CreateAgentEnemy(_prefab, spawnPoint.position, target);
         }
     }
    

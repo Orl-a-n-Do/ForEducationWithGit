@@ -7,10 +7,7 @@ public class Character : MonoBehaviour, IDirectionalMoveable, IDirectionRotatabl
    private DirectionalRotator _rotator;
     private NavMeshAgent _agent;
 
-
-   [SerializeField] private float _moveSpeed;
-   [SerializeField] private float _rotationSpeed;
-
+    [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private Transform _cameraTarget;
 
    
@@ -30,35 +27,13 @@ public class Character : MonoBehaviour, IDirectionalMoveable, IDirectionRotatabl
     
     public Transform CameraTarget => _cameraTarget;
 
-    public void Initialize()
+    public void Initialize(DirectionalMover mover, DirectionalRotator rotator)
     {
+        _mover = mover;
+        _rotator = rotator;
 
-        if (TryGetComponent(out NavMeshAgent agent))
-        {
-            _agent = agent;
-            // Если нужно управлять агентом вручную, можно добавить свой AgentMover и Rotator
-            // _mover = new AgentMover(_agent, _moveSpeed);
-            // _rotator = new TransformDirectionalRotator(transform, _rotationSpeed);
-        }
-        if (TryGetComponent(out CharacterController characterController))
-        {
-            _mover = new CharacterControllerDirectionalMover(characterController, _moveSpeed);
-            _rotator = new TransformDirectionalRotator(transform, _rotationSpeed);
-        }
-        else if (TryGetComponent(out Rigidbody rigidbody))
-        {
-            _mover = new RigidBodyDirectionalMover(rigidbody, _moveSpeed);
-            _rotator = new RigidBodyDirectionalRotator(rigidbody, _rotationSpeed);
-        }
-        else
-        {
-
-            Debug.Log("Не найден компонент передвижения на обьекте");
-        }
-
-        foreach(IInitializable initializable in GetComponentsInChildren<IInitializable>())
+        foreach (IInitializable initializable in GetComponentsInChildren<IInitializable>())
             initializable.Initialize();
-
     }
 
     private void Update()

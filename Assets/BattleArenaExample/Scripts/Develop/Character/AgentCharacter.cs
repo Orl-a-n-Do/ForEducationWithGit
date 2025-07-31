@@ -13,13 +13,8 @@ public class AgentCharacter : MonoBehaviour, IMoveable, ICanSpawn
 
     private Timer _spawnTimer;
 
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _rotationSpeed;
 
-    [SerializeField] private float _jumpSpeed;
-    [SerializeField] private AnimationCurve _jumpCurve;
-
-    [SerializeField] private float _timeToSwpawn;
+    private float _timeToSpawn;
 
     public Vector3 CurrentVelocity => _mover.CurrentVelocity;
     public Quaternion CurrentRotation => _rotator.CurrentRotation;
@@ -29,20 +24,24 @@ public class AgentCharacter : MonoBehaviour, IMoveable, ICanSpawn
     public float TimeToSwpawn => _spawnTimer.TimeLimit;
 
 
-    public void Initialize()
+    public void Initialize(
+        NavMeshAgent agent,
+        AgentMover mover,
+        TransformDirectionalRotator rotator,
+        Timer spawnTimer,
+        float timeToSpawn
+        )
     {
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.updateRotation = false;
+        
+        _agent = agent;
+        _mover = mover;
+        _rotator = rotator;
+        _spawnTimer = spawnTimer;
+        _timeToSpawn = timeToSpawn;
+        
+        _spawnTimer.StartProcess(_timeToSpawn);
 
-        _mover = new AgentMover(_agent, _moveSpeed);
-        _rotator = new TransformDirectionalRotator(transform, _rotationSpeed);
-        _jumper = new AgentJumper(_jumpSpeed, _agent, this, _jumpCurve);
-
-        _spawnTimer = new Timer(this);
-
-        _spawnTimer.StartProcess(_timeToSwpawn);
-
-        foreach(IInitializable initializable in GetComponentsInChildren<IInitializable>())
+        foreach (IInitializable initializable in GetComponentsInChildren<IInitializable>())
             initializable.Initialize();
 
     }
