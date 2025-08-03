@@ -2,22 +2,24 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class EnemiesSpawner : MonoBehaviour
+public class EnemiesSpawner 
 {
-    [SerializeField] private AgentCharacter _prefab;
-    [SerializeField] private float _radius;
-    [SerializeField] private int _count;
+   
 
     private EnemiesFactory _enemiesFactory;
 
 
-    public void Initialize(EnemiesFactory enemiesFactory)
+    public EnemiesSpawner(EnemiesFactory enemiesFactory)
     {
         _enemiesFactory = enemiesFactory;
         
     }
 
-    public void Spawn(Transform target)
+    public void Spawn(
+        AgentEnemyConfig enemyConfig,
+        Transform target,
+        float radius,
+        float count)
     {
         Vector3 positionAroundTarget;
         NavMeshHit spawnPoint;
@@ -26,17 +28,17 @@ public class EnemiesSpawner : MonoBehaviour
         queryFilter.agentTypeID = 0;
         queryFilter.areaMask = 1;
 
-        for (int i = 0; i < _count; i++)
+        for (int i = 0; i < count; i++)
         {
             do
             {
-                Vector2 randomPositionCircle = Random.insideUnitCircle * _radius;
+                Vector2 randomPositionCircle = Random.insideUnitCircle * radius;
                 Vector3 offset = new Vector3(randomPositionCircle.x, 0, randomPositionCircle.y);
 
                 positionAroundTarget = target.position + offset;
             } while (NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 0.1f, queryFilter) == false);
 
-            _enemiesFactory.CreateAgentEnemy(_prefab, spawnPoint.position, target);
+            _enemiesFactory.CreateAgentEnemy(enemyConfig, spawnPoint.position, target);
         }
     }
    

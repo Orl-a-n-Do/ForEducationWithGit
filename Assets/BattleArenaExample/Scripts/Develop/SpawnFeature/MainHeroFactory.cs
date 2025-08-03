@@ -19,9 +19,20 @@ public class MainHeroFactory
         _charactersFactory = charactersFactory;
     }
 
-    public Character Create(Character prefab, Vector3 spawnPosition, CinemachineVirtualCamera followCamera)
+    public Character Create(
+        MainHeroConfig config,
+        Vector3 spawnPosition,
+        CinemachineVirtualCamera followCamera)
+        
     {
-        Character instance = _charactersFactory.CreateCharacter(prefab, spawnPosition, 9, 900);
+        if (config.Prefab == null)
+            throw new System.ArgumentNullException(nameof(config.Prefab), "Character prefab is null");
+            
+        Character instance = _charactersFactory.CreateCharacter(
+            config.Prefab,
+            spawnPosition,
+            config.moveSpeed,
+            config.rotationSpeed);
 
         followCamera.Follow = instance.CameraTarget;
 

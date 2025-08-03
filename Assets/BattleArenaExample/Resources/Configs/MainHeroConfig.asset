@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f4d0aa0b1686044bfbb39de3dc99b4, type: 3}
+  m_Name: MainHeroConfig
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 3660582672809424392, guid: f1941d5e81b9f934fb2346a5beb3ace5, type: 3}
+  <moveSpeed>k__BackingField: 9
+  <rotationSpeed>k__BackingField: 900

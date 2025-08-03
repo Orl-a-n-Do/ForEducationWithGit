@@ -16,16 +16,24 @@ public class EnemiesFactory
         _charactersFactory = charactersFactory;
     }
 
-    public AgentCharacter CreateAgentEnemy(AgentCharacter prefab, Vector3 spawnPosition, Transform target)
+    public AgentCharacter CreateAgentEnemy(
+        AgentEnemyConfig config,
+        Vector3 spawnPosition,
+        Transform target)
     {   
-            AgentCharacter instance = _charactersFactory.CreateAgentCharacter(
-                prefab,
-                spawnPosition,
-                6 ,
-                900,
-                1);
+        AgentCharacter instance = _charactersFactory.CreateAgentCharacter(
+            config.Prefab,
+            spawnPosition,
+            config.MoveSpeed,
+            config.RotationSpeed,
+            config.TimeToSpawn);
              
-            Controller controller = _controllersFactory.CreateAgentCharacterAgroController(instance, target, 30, 2, 1);
+            Controller controller = _controllersFactory.CreateAgentCharacterAgroController(
+                instance,
+                target,
+                config.AgroRange,
+                config.MinDistanceToTarget,
+                config.TimeToIdle);
 
 
             controller.Enable();

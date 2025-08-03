@@ -1,10 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using Cinemachine;
 
 public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] private MainHeroSpawner _mainHeroSpawner;
-    [SerializeField] private EnemiesSpawner _enemiesSpawner;
+    
+    [SerializeField] private float _radius;
+    [SerializeField] private int _count;
+
+    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private CinemachineVirtualCamera _followCamera;
+
+    
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private ConfirmPopup _confirmPopup;
 
@@ -23,6 +30,9 @@ public class Bootstrap : MonoBehaviour
         _loadingScreen.Show();
         _loadingScreen.ShowMessage("Loading...");
 
+        MainHeroConfig heroConfig = Resources.Load<MainHeroConfig>("Configs/MainHeroConfig");
+        AgentEnemyConfig enemyConfig = Resources.Load<AgentEnemyConfig>("Configs/AgentEnemyConfig");
+
 
         _controllersUpdateService = new ControllersUpdateService();
 
@@ -35,13 +45,13 @@ public class Bootstrap : MonoBehaviour
         EnemiesFactory enemiesFactory = new EnemiesFactory(_controllersUpdateService, controllersFactory, charactersFactory);
 
 
-        _mainHeroSpawner.Initialize(mainHeroFactory);
-        _enemiesSpawner.Initialize(enemiesFactory);
+        EnemiesSpawner _enemiesSpawner = new EnemiesSpawner(enemiesFactory);
+        
 
         yield return new WaitForSeconds(1.5f);
 
         //Подготовка к игре
-        Character mainHero = _mainHeroSpawner.Spawn();
+        Character mainHero = mainHeroFactory.Create(heroConfig, _spawnPoint.position, _followCamera);
 
 
         _loadingScreen.Hide();
@@ -53,7 +63,7 @@ public class Bootstrap : MonoBehaviour
         _confirmPopup.Hide();
         // Cтарт игры
 
-        _enemiesSpawner.Spawn(mainHero.transform);
+        _enemiesSpawner.Spawn(enemyConfig, mainHero.transform, _radius, _count);
     }
 
     private void Update()

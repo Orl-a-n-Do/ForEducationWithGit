@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af2a8c3ce922c6044a2e20f117ce4623, type: 3}
+  m_Name: AgentEnemyConfig
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 6387983112345875006, guid: 4067879507414ee45a9272bc75242a88, type: 3}
+  <MoveSpeed>k__BackingField: 9
+  <RotationSpeed>k__BackingField: 900
+  <TimeToSpawn>k__BackingField: 2
+  <AgroRange>k__BackingField: 30
+  <TimeToIdle>k__BackingField: 1
+  <MinDistanceToTarget>k__BackingField: 5
