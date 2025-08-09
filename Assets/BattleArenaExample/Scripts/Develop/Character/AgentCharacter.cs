@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour, IMoveable, ICanSpawn
+public class AgentCharacter : MonoDestroyable, IMoveable, ICanSpawn
 {
     private NavMeshAgent _agent;
 

@@ -1386,10 +1386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aec967cef6e4d45b27ffd5eeea8c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 5
-  _count: 5
-  _spawnPoint: {fileID: 1971597650}
-  _followCamera: {fileID: 1526167324}
   _loadingScreen: {fileID: 1545829921}
   _confirmPopup: {fileID: 177648560}
 --- !u!1 &1319200417
@@ -2642,7 +2638,7 @@ GameObject:
   - component: {fileID: 1971597650}
   m_Layer: 0
   m_Name: SpawnPointOfHero
-  m_TagString: Untagged
+  m_TagString: StartHeroPosition
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2656,7 +2652,7 @@ Transform:
   m_GameObject: {fileID: 1971597649}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.72, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

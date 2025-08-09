@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Character : MonoBehaviour, IDirectionalMoveable, IDirectionRotatable
+public class Character : MonoDestroyable, IDirectionalMoveable, IDirectionRotatable
 {
    private DirectionalMover _mover;
    private DirectionalRotator _rotator;

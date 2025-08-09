@@ -5,23 +5,19 @@ using Cinemachine;
 public class Bootstrap : MonoBehaviour
 {
     
-    [SerializeField] private float _radius;
-    [SerializeField] private int _count;
-
-    [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private CinemachineVirtualCamera _followCamera;
-
-    
     [SerializeField] private LoadingScreen _loadingScreen;
     [SerializeField] private ConfirmPopup _confirmPopup;
 
     private ControllersUpdateService _controllersUpdateService;
+    private GamePlayCycle _gamePlayCycle;
+
+
+
+
 
     private void Awake()
     {
-
         StartCoroutine(StartProcess());
-
     }
 
 
@@ -31,8 +27,19 @@ public class Bootstrap : MonoBehaviour
         _loadingScreen.ShowMessage("Loading...");
 
         MainHeroConfig heroConfig = Resources.Load<MainHeroConfig>("Configs/MainHeroConfig");
-        AgentEnemyConfig enemyConfig = Resources.Load<AgentEnemyConfig>("Configs/AgentEnemyConfig");
+        LevelListConfig levelListConfig = Resources.Load<LevelListConfig>("Configs/LevelListConfig");
 
+        if (heroConfig == null)
+        {
+            Debug.LogError("MainHeroConfig not found");
+            yield break;
+        }
+
+        if (levelListConfig == null)
+        {
+            Debug.LogError("LevelListConfig not found");
+            yield break;
+        }
 
         _controllersUpdateService = new ControllersUpdateService();
 
@@ -46,29 +53,45 @@ public class Bootstrap : MonoBehaviour
 
 
         EnemiesSpawner _enemiesSpawner = new EnemiesSpawner(enemiesFactory);
-        
+
+        LevelConfig levelConfig = levelListConfig.GetRandom();
+
+        _gamePlayCycle = new GamePlayCycle(
+            mainHeroFactory,
+            heroConfig,
+            levelConfig,
+            _confirmPopup,
+            _enemiesSpawner,
+            this);
 
         yield return new WaitForSeconds(1.5f);
 
         //Подготовка к игре
-        Character mainHero = mainHeroFactory.Create(heroConfig, _spawnPoint.position, _followCamera);
 
+
+        _gamePlayCycle.Prepare();
 
         _loadingScreen.Hide();
-        _confirmPopup.Show();
-        _confirmPopup.ShowMessage($"Press{KeyCode.F.ToString()} for begin");
 
-        yield return _confirmPopup.WaitConfirm(KeyCode.F);
 
-        _confirmPopup.Hide();
+
         // Cтарт игры
 
-        _enemiesSpawner.Spawn(enemyConfig, mainHero.transform, _radius, _count);
+        yield return _gamePlayCycle.Launch();
+
+
+    }
+
+
+    private void OnDestroy()
+    {        
+        _gamePlayCycle?.Dispose();
     }
 
     private void Update()
     {
         _controllersUpdateService?.Update(Time.deltaTime);
+        _gamePlayCycle?.Update(Time.deltaTime);
     }
 
 }

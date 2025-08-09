@@ -21,8 +21,8 @@ public class MainHeroFactory
 
     public Character Create(
         MainHeroConfig config,
-        Vector3 spawnPosition,
-        CinemachineVirtualCamera followCamera)
+        Vector3 spawnPosition
+        )
         
     {
         if (config.Prefab == null)
@@ -34,6 +34,9 @@ public class MainHeroFactory
             config.moveSpeed,
             config.rotationSpeed);
 
+        CinemachineVirtualCamera followCameraPrefab = Resources.Load<CinemachineVirtualCamera>("FollowCamera");
+        CinemachineVirtualCamera followCamera = Object.Instantiate(followCameraPrefab);
+
         followCamera.Follow = instance.CameraTarget;
 
 
@@ -41,7 +44,7 @@ public class MainHeroFactory
         Controller controller = _controllersFactory.CreateMainHeroPlayerController(instance);
         controller.Enable();
 
-        _controllersUpdateService.Add(controller);
+        _controllersUpdateService.Add(controller,() => instance.IsDestroyed);
         return instance;
 
     }
