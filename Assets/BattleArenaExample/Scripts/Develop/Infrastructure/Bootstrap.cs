@@ -12,9 +12,6 @@ public class Bootstrap : MonoBehaviour
     private GamePlayCycle _gamePlayCycle;
 
 
-
-
-
     private void Awake()
     {
         StartCoroutine(StartProcess());
@@ -68,6 +65,8 @@ public class Bootstrap : MonoBehaviour
 
         //Подготовка к игре
 
+       
+
 
         _gamePlayCycle.Prepare();
 
@@ -92,6 +91,7 @@ public class Bootstrap : MonoBehaviour
     {
         _controllersUpdateService?.Update(Time.deltaTime);
         _gamePlayCycle?.Update(Time.deltaTime);
+
     }
 
 }

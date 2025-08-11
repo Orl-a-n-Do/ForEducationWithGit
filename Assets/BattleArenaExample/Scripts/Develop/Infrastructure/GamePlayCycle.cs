@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GamePlayCycle : IDisposable
 {
@@ -93,7 +95,9 @@ public class GamePlayCycle : IDisposable
     {
         OnGameModeEnded();
         Debug.Log("Defeat");
-        _context.StartCoroutine(Launch());
+
+        SceneManager.LoadScene("Menu");
+
     }
 
 }

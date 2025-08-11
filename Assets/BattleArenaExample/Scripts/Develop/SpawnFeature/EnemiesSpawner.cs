@@ -34,18 +34,30 @@ public class EnemiesSpawner
 
         for (int i = 0; i < count; i++)
         {
+            int attempts = 0;
+            const int maxAttempts = 100;
+            bool foundValidPosition = false;
 
             do
             {
                 Vector2 randomPositionCircle = Random.insideUnitCircle * radius;
                 Vector3 offset = new Vector3(randomPositionCircle.x, 0, randomPositionCircle.y);
-
-
                 positionAroundTarget = target.position + offset;
+                
+                attempts++;
+                foundValidPosition = NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 1f, queryFilter);
+                
+            } while (!foundValidPosition && attempts < maxAttempts);
 
-            } while (NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 0.1f, queryFilter));
-
-            spawnedEnemies.Add(_enemiesFactory.CreateAgentEnemy(enemyConfig, spawnPoint.position, target));
+            if (foundValidPosition)
+            {
+                spawnedEnemies.Add(_enemiesFactory.CreateAgentEnemy(enemyConfig, spawnPoint.position, target));
+            }
+            else
+            {
+                Debug.LogWarning($"Не удалось найти валидную позицию для спавна врага {i} после {maxAttempts} попыток. Используем позицию цели.");
+                spawnedEnemies.Add(_enemiesFactory.CreateAgentEnemy(enemyConfig, target.position, target));
+            }
 
         }
         
