@@ -13,7 +13,7 @@ public class LevelConfig : ScriptableObject
     [field: SerializeField] public int EnemiesCount { get; private set; }
     [field: SerializeField] public int EnemiesSpawnRange { get; private set; }
     [field: SerializeField] public Vector3 MainHeroStartPosition { get; private set; }
-
+    [field: SerializeField] public string EnviromentSceneName { get; private set; }
 
     [ContextMenu("Update Start Hero Position")]
     private void UpdateStartHeroPosition()

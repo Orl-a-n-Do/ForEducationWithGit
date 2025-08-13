@@ -18,3 +18,4 @@ MonoBehaviour:
   <EnemiesCount>k__BackingField: 5
   <EnemiesSpawnRange>k__BackingField: 5
   <MainHeroStartPosition>k__BackingField: {x: 0, y: 0.5, z: 0}
+  <EnviromentSceneName>k__BackingField: Enviroment_2

@@ -68,7 +68,7 @@ public class Bootstrap : MonoBehaviour
        
 
 
-        _gamePlayCycle.Prepare();
+        yield return _gamePlayCycle.Prepare();
 
         _loadingScreen.Hide();
 

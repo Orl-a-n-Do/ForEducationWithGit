@@ -9,7 +9,13 @@ EditorBuildSettings:
     path: Assets/BattleArenaExample/Scene/Menu.unity
     guid: 01c83c71cef13a34b9c839efb8b357e3
   - enabled: 1
-    path: Assets/BattleArenaExample/Scene.unity
+    path: Assets/BattleArenaExample/Scene/Scene.unity
     guid: 669194a380239bd48ab833e65d14412c
+  - enabled: 1
+    path: Assets/BattleArenaExample/Scene/Enviroment_1.unity
+    guid: 57281af7dfdea08478a3e5e3ffe1fbdf
+  - enabled: 1
+    path: Assets/BattleArenaExample/Scene/Enviroment_2.unity
+    guid: 7c11dcf8b04cf1240981769fba9ca04d
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,8 +38,9 @@ public class GamePlayCycle : IDisposable
         _context = context;
     }
 
-    public void Prepare()
+    public IEnumerator Prepare()
     {
+        yield return SceneManager.LoadSceneAsync(_levelConfig.EnviromentSceneName, LoadSceneMode.Additive);
         _mainHero = _mainHeroFactory.Create(_mainHeroConfig, _levelConfig.MainHeroStartPosition);
     }
 
@@ -96,7 +96,7 @@ public class GamePlayCycle : IDisposable
         OnGameModeEnded();
         Debug.Log("Defeat");
 
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
 
     }
 
